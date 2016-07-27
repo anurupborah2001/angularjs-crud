@@ -1,0 +1,46 @@
+<section>
+  <div class="page-header">
+    <h1 ng-bind="vm.car.title"></h1>
+  </div>
+  <div class="pull-right" ng-show="vm.car.isCurrentUserOwner">
+    <a class="btn btn-primary" ui-sref="cars.edit({ carId: vm.car._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+    <br/><br/>
+    <div class="row">
+        <div class="col-md-4">
+            <img class="img-thumbnail" src="{{path.PATH + vm.car.imageurl}}" />
+        </div>
+         <div class="col-md-8">
+              <ul>
+                <li>Make  : {{vm.car.make}}</li>
+                <li>Model  : {{vm.car.model}}</li>
+                <li>Price  :  {{vm.car.price | currency:"USD$ ":0 }}</li>
+                <li>Year  : {{ vm.car.year }}</li>
+                <li>State  : {{ vm.car.state }}</li>
+            </ul>
+        </div>
+    </div>
+    <br/><br/>
+     <div class="row">
+         <div class="col-md-12">
+             <p>{{ vm.car.description }}</p>
+             <a href="mailto:{{ vm.car.contact_email }}" class="btn btn-primary">Contect Owner</a>
+         </div>
+     </div>
+    <br/><br/>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="vm.car.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="vm.car.user" ng-bind="vm.car.user.displayName"></span>
+      <span ng-if="!vm.car.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="vm.car.content"></p>
+</section>

@@ -1,0 +1,27 @@
+<section>
+  <div class="page-header">
+    <h1>Latest Cars</h1>
+  </div>
+  <div class="list-group">
+    <div class="row car"  ng-repeat="car in vm.cars">
+        <div class="col-md-3">
+            <img class="img-thumbnail" src="{{path + car.imageurl}}" />
+        </div>
+        <div class="col-md-9">
+            <h3>{{ car.title }}</h3>
+            <ul>
+                <li>Make  : {{ car.make }}</li>
+                <li>Model  : {{ car.model }}</li>
+                <li>Price  : {{ car.price | currency:"USD$ ":0 }}</li>
+                <li>Year  : {{ car.year }}</li>
+                <li>State  : {{ car.state }}</li>
+            </ul>
+            <a href="/cars/{{ car._id }}" >View Details</a>
+        </div>
+    </div>
+      
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.cars.$resolved && !vm.cars.length">
+    No cars yet, why don't you <a ui-sref="cars.create">create one</a>?
+  </div>
+</section>
