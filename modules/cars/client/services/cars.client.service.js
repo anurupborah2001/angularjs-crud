@@ -29,7 +29,7 @@
       if (car._id) {
         return car.$update(onSuccess, onError);
       } else {
-         return car.$save(onSuccess, onError);
+        return car.$save(onSuccess, onError);
       }
 
       // Handle successful response
@@ -40,7 +40,6 @@
       // Handle error response
       function onError(errorResponse) {
         var error = errorResponse.data;
-       
         // Handle error internally
         handleError(error);
       }

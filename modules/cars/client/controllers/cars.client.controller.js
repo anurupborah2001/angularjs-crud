@@ -3,14 +3,13 @@
 
   angular
     .module('cars').constant("IMG_UPLOAD", {
-        "PATH": "uploads/"})
+      "PATH": "uploads/" })
     .controller('CarsController', CarsController);
 
-  CarsController.$inject = ['$scope', '$state', 'carResolve', '$window', 'Authentication','$location','Upload','$timeout','IMG_UPLOAD'];
+  CarsController.$inject = ['$scope', '$state', 'carResolve', '$window', 'Authentication', '$location', 'Upload', '$timeout', 'IMG_UPLOAD'];
 
-  function CarsController($scope, $state, car, $window, Authentication,$location,Upload,$timeout,IMG_UPLOAD) {
+  function CarsController($scope, $state, car, $window, Authentication, $location, Upload, $timeout, IMG_UPLOAD) {
     var vm = this;
-
     vm.car = car;
     vm.authentication = Authentication;
     vm.error = null;
@@ -29,11 +28,11 @@
 //
 //         console.log(car);
 //         Upload.upload({
-//            url: '/articleupload', 
-//            method: 'POST', 
-//            headers: {'Content-Type': 'multipart/form-data'},
-//            fields: {car: car},
-//            file: imageurl,               
+//           url: '/articleupload',
+//           method: 'POST',
+//           headers: {'Content-Type': 'multipart/form-data'},
+//           fields: {car: car},
+//           file: imageurl,  
 //        }).success(function (response, status) {
 //              $location.path('cars/' + response._id);
 //
@@ -43,15 +42,14 @@
 //                $scope.error = err.data.message;
 //        });
 //    }
-//    
-//    
+//
+//
 //       $scope.uploadFiles = function(file, errFiles) {
-//          
-//        $scope.f = file;
-//        $scope.errFile = errFiles && errFiles[0];
-//        
+//       $scope.f = file;
+//       $scope.errFile = errFiles && errFiles[0];
+//
 //        if (file) {
-//           
+//
 //            file.upload = Upload.upload({
 //                url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
 //                data: {file: file}
@@ -66,13 +64,12 @@
 //                if (response.status > 0)
 //                    $scope.errorMsg = response.status + ': ' + response.data;
 //            }, function (evt) {
-//                file.progress = Math.min(100, parseInt(100.0 * 
+//              file.progress = Math.min(100, parseInt(100.0 *
 //                                         evt.loaded / evt.total));
 //            });
-//        }   
+//        }
 //    }
-//    
-//    
+//
 //     $scope.doTimeout = function(file) {
 //         console.log('do timeout');
 //        $timeout( function() {
@@ -87,8 +84,8 @@
 //                };
 //            });
 //    };
-//    
-//    
+//
+//
 //     $scope.generateThumb = function(file) {
 //        console.log('generate Thumb');
 //    if (file) {
@@ -100,8 +97,6 @@
 //      }
 //   };
 
-    
-    
     // Remove existing Car
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
@@ -109,27 +104,19 @@
       }
     }
     
-    
- 
-
     // Save Car
     function save(isValid) {
-       
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.carForm');
         return false;
       }
       
      
-      if (vm.form.carForm.imageurl.$valid && vm.car.imageurl) { //check if from is valid
-            vm.car.upload(vm.car.imageurl); //call upload function
+      if (vm.form.carForm.imageurl.$valid && vm.car.imageurl) { // check if from is valid
+            vm.car.upload(vm.car.imageurl); // call upload function
       }     
       
-      
-      
-      
-
-      // Create a new car, or update the current instance
+     // Create a new car, or update the current instance
       $timeout(function () {
             vm.car.createOrUpdate()
               .then(successCallback)
@@ -153,30 +140,27 @@
     
     vm.car.upload = function (file) {
             Upload.upload({
-                url: 'http://localhost:3000/upload', //webAPI exposed to upload the file
-                data:{file:file} //pass file as data, should be user ng-model
-            }).then(function (resp) { //upload function returns a promise
-                if(resp.data.error_code === 0){ //validate success
+                url: 'http://localhost:3000/upload', // webAPI exposed to upload the file
+                data:{file:file} // pass file as data, should be user ng-model
+            }).then(function (resp) { // upload function returns a promise
+                if(resp.data.error_code === 0){ // validate success
                    
                    // $window.alert('Success ' + resp.config.data.file.name + 'uploaded. Response: ');
-                   console.log(resp.data.filedesc.filename);
-                   vm.car.imageurl = resp.data.filedesc.filename;
-                   //vm.imagepath = resp.data.filedesc.path;
-                  
-                   
+                  console.log(resp.data.filedesc.filename);
+                  vm.car.imageurl = resp.data.filedesc.filename;
+                   // vm.imagepath = resp.data.filedesc.path;
                 } else {
-                    $window.alert('an error occured');
+                  $window.alert('an error occured');
                 }
-            }, function (resp) { //catch error
-                console.log('Error status: ' + resp.status);
-                $window.alert('Error status: ' + resp.status);
+            }, function (resp) { // catch error
+              console.log('Error status: ' + resp.status);
+              $window.alert('Error status: ' + resp.status);
             }, function (evt) { 
-                console.log(evt);
-                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-                vm.progress = 'progress: ' + progressPercentage + '% '; // capture upload progress
+              console.log(evt);
+              var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+              console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+              vm.progress = 'progress: ' + progressPercentage + '% '; // capture upload progress
             });
-        };
-    
- }
+    };
+}
 }());

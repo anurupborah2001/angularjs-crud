@@ -15,9 +15,9 @@ var path = require('path'),
 exports.create = function (req, res) {
   var car = new Car(req.body);
   car.user = req.user;
- 
+
   car.save(function (err) {
-      console.log(err);
+    console.log(err);
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -27,8 +27,6 @@ exports.create = function (req, res) {
     }
   });
 };
-
-
 
 /**
  * Show the current car
@@ -87,7 +85,7 @@ exports.createWithUpload = function(req, res) {
   var article = new Article(art);
   article.user = req.user;
 
-  fs.readFile(file.path, function (err,original_data) {
+  fs.readFile(file.path , function (err , original_data) {
  if (err) {
    return res.status(400).send({
          message: errorHandler.getErrorMessage(err)
