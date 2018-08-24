@@ -1,4 +1,4 @@
-Angular JS CRUD Application using MEANJS
+Node JS CRUD Application using MEAN Framework
 
 1) Need to install Node module...
 npm start
